@@ -31,21 +31,23 @@ namespace MultithreadedBatcher
 							"\t" + "mtxh.exe --run=<executable to run> --cmd=<command-line>" +
 							"<file1> <file2> <file3> <file4>..." + "\n\n" +
 							"OPTIONS: \n" +
-							 @"--run=<arg>" +		"\t" + @"1. Executable absolute path: <DRIVE>:\<PATH>" + "\n" + 
-													"\t" +"\t" + @"2. Executable (current directory||global) path: .\<EXE>" + "\n" +
-							 @"--threads=<int>" +	"\t" + @"Specify the number of threads to be executed simultaneously. (DEFAULT: CPU Thread Count)" + "\n" +
-							 @"--removefiles" +		 "\t" + @"Remove processed files after job finished." + "\n" +
-							 @"--silent" +			"\t" + @"Silent execution no text output" + "\n" 
-
-
-
-
-
-
+							 @"--run=<arg>" + "\t" + "\t" + "\t" + @"1. Executable absolute path: <DRIVE>:\<PATH>" + "\n" +
+													"\t" + "\t" + "\t" +"\t" + @"2. Executable (current directory||global) path: .\<EXE>" + "\n" +
+							 @"--threads=<int>" + "\t" + "\t" + "\t" + @"Specify the number of threads to be executed simultaneously. (DEFAULT: CPU Thread Count)" + "\n" +
+							 @"--removefiles" + "\t" + "\t" + "\t" + @"Remove processed files after job finished." + "\n" +
+							 @"--silent" + "\t" + "\t" + "\t" + @"Silent execution no text output" + "\n" +
+							 @"--foreach-extension=[extension]"  + "\t" + @"Specify extension which; files filtered by, can be passed several times for each additional extension filter." + "\n" +
+							 "--cmd=\"<command-line>\"" + "\t" + "\t" +  @"Command-line to be passed to executable, with wildcard support." + "\n\n" +
+							 "Wildcards & Command-Line syntax: \n" +
+							 "\t\t !<string>! \t\t: Any string between double (!), will be passed as a string between quotation marks." + "\n" +
+							 "\t\t @@File.FullName \t:  Curennt processed file full path name." + "\n" +
+							 "\t\t @@File.Root \t\t:  Curennt processed file parent directory path name." + "\n" +
+							 "\t\t @@File.Name \t\t:  Curennt processed file file-name only." + "\n" +
+							 "\t\t @@File.Time \t\t:  Curennt processed file last access time, in format: '_yyyy-MM-dd_HH-mm'" + "\n\n" 
+							 + "------------------------------------ PRESS ANY KEY TO EXIT ------------------------------------"
 											  );
 			Console.ReadKey();
 		}
-		///----------------------------------------------------------------------------------////
 		///----------------------------------------------------------------------------------////
 		private static void Executer(string currentDir, string exePath, string commandLine, FileInfo filePathInfo)
 		{
