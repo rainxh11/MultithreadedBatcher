@@ -67,9 +67,13 @@ namespace MultithreadedBatcher
 			{
 				parsedCmdLine = parsedCmdLine.Replace("@@File.Root", filePathInfo.DirectoryName + @"\");
 			}
-			if (parsedCmdLine.Contains("!"))
+			if (parsedCmdLine.Contains("!") && !parsedCmdLine.Contains("&!"))
 			{
 				parsedCmdLine = parsedCmdLine.Replace("!", @"""");
+			}
+			if (parsedCmdLine.Contains("&"))
+			{
+				parsedCmdLine = parsedCmdLine.Replace("&", "!");
 			}
 			if (parsedCmdLine.Contains("@@File.Time"))
 			{
@@ -97,7 +101,7 @@ namespace MultithreadedBatcher
 			///----------------------------------------------------------------------------------////
 			Process process = new Process();
 			process.StartInfo.UseShellExecute = false;
-			process.StartInfo.RedirectStandardOutput = !silent;
+			process.StartInfo.RedirectStandardOutput = false ;//!silent;
 			process.StartInfo.CreateNoWindow = false;
 			if (exeIsGlobalPath)
 			{
@@ -125,7 +129,9 @@ namespace MultithreadedBatcher
 			{
 				foreach (DirectoryInfo dirInfo in foldersList)
 				{
-					Parallel.ForEach(dirInfo.GetFiles("*." + ext, SearchOption.AllDirectories), new ParallelOptions { MaxDegreeOfParallelism = threads }, (FileInfo file) =>
+					FileInfo[] dirContent = dirInfo.GetFiles("*." + ext, SearchOption.AllDirectories);
+					
+					Parallel.ForEach(dirContent.ToList(), new ParallelOptions { MaxDegreeOfParallelism = threads }, (FileInfo file) =>
 					{
 						Console.ForegroundColor = ConsoleColor.Cyan;
 						Console.WriteLine($"Processing {file.FullName} on thread {Thread.CurrentThread.ManagedThreadId}");

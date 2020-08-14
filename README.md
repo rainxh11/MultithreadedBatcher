@@ -7,7 +7,7 @@
         mtxh.exe --run=<executable to run> --cmd=<command-line><file1> <file2> <file3> <file4>...
 	OPTIONS:
 	--run=<arg>                     1. Executable absolute path: <DRIVE>:\<PATH>
-									2. Executable (current directory||global) path: .\<EXE>
+					2. Executable (current directory||global) path: .\<EXE>
 	--threads=<int>                 Specify the number of threads to be executed simultaneously. (DEFAULT: CPU Thread Count)
 	--removefiles                   Remove processed files after job finished.
 	--silent                        Silent execution no text output
